@@ -10,6 +10,8 @@ run a process in some [flaked][flakes] environment with:
 $ minecraft-server
 ```
 
+[or inspect service patterns on machine startup][service].
+
 ## joining the world
 
 connect to the server with a hostname and port:
@@ -31,7 +33,7 @@ the `plugins` path has more setting but hides builds.
 
 ## backups
 
-saving worlds is not a task for this repo.
+[saving worlds is instead a task for another repo][backup].
 
 ### creating the cloud
 
@@ -58,15 +60,18 @@ $ tofu apply
 
 ### saving a backup
 
-it is often a scheduled time to perform backups:
+[it is often a scheduled time to perform backups][timer]:
 
 ```sh
 $ nix develop .#backup
 $ ./backup/backup.sh
 ```
 
+[backup]: https://github.com/zimeg/.DOTFILES/blob/abdb288a3e62712a49c01c97f408aa73a874e9ca/machines/tom/systemd/services/default.nix#L29-L40
 [bukkit]: https://dev.bukkit.org
 [default]: https://minecraft.fandom.com/wiki/Server.properties#Keys
 [flakes]: https://wiki.nixos.org/wiki/Flakes
 [papermc]: https://docs.papermc.io/paper
+[service]: https://github.com/zimeg/.DOTFILES/blob/abdb288a3e62712a49c01c97f408aa73a874e9ca/machines/tom/systemd/services/default.nix#L41-L56
 [spigot]: http://www.spigotmc.org/wiki/spigot-configuration/
+[timer]: https://github.com/zimeg/.DOTFILES/blob/abdb288a3e62712a49c01c97f408aa73a874e9ca/machines/tom/systemd/timers/default.nix#L4-L9
