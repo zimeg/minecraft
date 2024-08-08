@@ -5,6 +5,7 @@ versions
 
 # Development dependencies
 .direnv
+.terraform
 
 # Plugin configuration
 .paper-remapped

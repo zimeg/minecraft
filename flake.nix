@@ -15,5 +15,11 @@
             papermcServers.papermc-1_21
           ];
         };
+        devShells.backup = pkgs.mkShell {
+          packages = with pkgs; [
+            awscli2
+            opentofu
+          ];
+        };
       });
 }
