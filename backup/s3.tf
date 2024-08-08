@@ -36,10 +36,12 @@ resource "aws_s3_bucket_versioning" "versioning" {
 resource "aws_s3_bucket_intelligent_tiering_configuration" "archives" {
   bucket = aws_s3_bucket.backups.id
   name   = "archives"
+
   tiering {
     access_tier = "ARCHIVE_ACCESS"
     days        = 90
   }
+
   tiering {
     access_tier = "DEEP_ARCHIVE_ACCESS"
     days        = 180
