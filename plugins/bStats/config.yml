@@ -1,0 +1,4 @@
+# Plugin metrics - https://bStats.org/
+enabled: false
+serverUuid: ead53ed3-bd2e-47fb-bc15-8c9042f5af71
+logFailedRequests: false

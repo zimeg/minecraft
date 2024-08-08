@@ -1,0 +1,18 @@
+# Build components
+cache
+libraries
+versions
+
+# Development dependencies
+.direnv
+
+# Plugin configuration
+.paper-remapped
+*.jar
+*.tmp
+
+# Runtime artifacts
+.console_history
+logs
+usercache.json
+world*
