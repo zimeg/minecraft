@@ -20,6 +20,15 @@ connect to the server with a hostname and port:
 tom:25565
 ```
 
+### changing the saves
+
+update the `server.properties` then restart:
+
+```diff
+- level-name=world
++ level-name=skyblock
+```
+
 ## plugins
 
 the minimal experience is sought so few changes here.

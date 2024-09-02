@@ -16,4 +16,7 @@ versions
 .console_history
 logs
 usercache.json
+
+# Gametime buildings
+skyblock*
 world*

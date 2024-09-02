@@ -2,6 +2,7 @@
 
 saves to the blocks aren't tracked here. just configurations.
 
+- feat: backup the skyblock save with needed server changes 2024-09-01
 - feat: include a server icon in which tom emerges gamified 2024-08-09
 - build: backup logs from loaded gameplay and saved actions 2024-08-09
 - chore: license the checked in code under a permissive mit 2024-08-07
