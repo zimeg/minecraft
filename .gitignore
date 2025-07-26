@@ -1,22 +1,3 @@
-# Build components
-cache
-libraries
-versions
-
 # Development dependencies
 .direnv
 .terraform
-
-# Plugin configuration
-.paper-remapped
-*.jar
-*.tmp
-
-# Runtime artifacts
-.console_history
-logs
-usercache.json
-
-# Gametime buildings
-skyblock*
-world*

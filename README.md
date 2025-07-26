@@ -4,13 +4,19 @@
 
 ## starting a server
 
-run a process in some [flaked][flakes] environment with:
+find process to run a server with [`@theorderingmachine`](https://github.com/zimeg/.DOTFILES/blob/a5d17c4e1019fbcea417e0af89453f0030f61054/machines/tom/services/minecraft-server/default.nix):
 
 ```sh
-$ minecraft-server
+$ systemctl start minecraft-server.service
 ```
 
-[or inspect service patterns on machine startup][service].
+### following the logs
+
+inspect service outputs with machine startup:
+
+```sh
+$ journalctl -u minecraft-server.service
+```
 
 ## joining the world
 
@@ -29,27 +35,15 @@ update the `server.properties` then restart:
 + level-name=skyblock
 ```
 
-## plugins
-
-the minimal experience is sought so few changes here.
-
-- [default][default]: basic outlines for this game - `server.properties`
-- [papermc][papermc]: simple server configurations - `config/paper-*.yml`
-- [bukkit][bukkit]: compiled build settings - `bukkit.yml`
-- [spigot][spigot]: compiled build settings - `spigot.yml`
-
-the `plugins` path has more setting but hides builds.
-
 ## backups
 
-[saving worlds is instead a task for another repo][backup].
+one world is saved in safekeepings from deletion.
 
 ### creating the cloud
 
 a unique bucket on amazon web services is needed:
 
 ```sh
-$ vim ./backup/backup.sh
 $ vim ./backup/tofu.auto.tfvars.json
 ```
 
@@ -62,25 +56,26 @@ $ vim ./backup/main.tf
 then configuration can change the currents cloud:
 
 ```sh
-$ nix develop .#backup
 $ tofu init
 $ tofu apply
 ```
 
 ### saving a backup
 
-[it is often a scheduled time to perform backups][timer]:
+[it is often a scheduled time to perform backups](https://github.com/zimeg/.DOTFILES/blob/a5d17c4e1019fbcea417e0af89453f0030f61054/machines/tom/services/restic/default.nix):
 
 ```sh
-$ nix develop .#backup
-$ ./backup/backup.sh
+$ systemctl start restic-backups-minecraft.service
 ```
 
-[backup]: https://github.com/zimeg/.DOTFILES/blob/abdb288a3e62712a49c01c97f408aa73a874e9ca/machines/tom/systemd/services/default.nix#L29-L40
-[bukkit]: https://dev.bukkit.org
-[default]: https://minecraft.fandom.com/wiki/Server.properties#Keys
-[flakes]: https://wiki.nixos.org/wiki/Flakes
-[papermc]: https://docs.papermc.io/paper
-[service]: https://github.com/zimeg/.DOTFILES/blob/abdb288a3e62712a49c01c97f408aa73a874e9ca/machines/tom/systemd/services/default.nix#L41-L56
-[spigot]: http://www.spigotmc.org/wiki/spigot-configuration/
-[timer]: https://github.com/zimeg/.DOTFILES/blob/abdb288a3e62712a49c01c97f408aa73a874e9ca/machines/tom/systemd/timers/default.nix#L4-L9
+### reloading from save
+
+with more luck past files can be used for game:
+
+```sh
+$ systemctl stop minecraft-server.service
+$ restic -r s3:s3.us-east-1.amazonaws.com/tom.25565 restore latest --target /tmp/backup
+$ rsync -av --delete /tmp/backup/srv/minecraft/world/ /persistent/srv/minecraft/world/
+$ chown -R minecraft:minecraft /persistent/srv/minecraft/world
+$ systemctl start minecraft-server.service
+```
