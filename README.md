@@ -37,45 +37,4 @@ update the `server.properties` then restart:
 
 ## backups
 
-one world is saved in safekeepings from deletion.
-
-### creating the cloud
-
-a unique bucket on amazon web services is needed:
-
-```sh
-$ vim ./backup/tofu.auto.tfvars.json
-```
-
-some changes to the backend backups can happen:
-
-```sh
-$ vim ./backup/main.tf
-```
-
-then configuration can change the currents cloud:
-
-```sh
-$ tofu init
-$ tofu apply
-```
-
-### saving a backup
-
-[it is often a scheduled time to perform backups](https://github.com/zimeg/.DOTFILES/blob/a5d17c4e1019fbcea417e0af89453f0030f61054/machines/tom/services/restic/default.nix):
-
-```sh
-$ systemctl start restic-backups-minecraft.service
-```
-
-### reloading from save
-
-with more luck past files can be used for game:
-
-```sh
-$ systemctl stop minecraft-server.service
-$ restic -r s3:s3.us-east-1.amazonaws.com/tom.25565 restore latest --target /tmp/backup
-$ rsync -av --delete /tmp/backup/srv/minecraft/world/ /persistent/srv/minecraft/world/
-$ chown -R minecraft:minecraft /persistent/srv/minecraft/world
-$ systemctl start minecraft-server.service
-```
+one world is [saved in safekeepings](https://github.com/zimeg/.DOTFILES/blob/6583d96b2024d1fbcf185a65dcb555a8bc18dd92/machines/tom/services/restic/default.nix#L25-L44) from deletion.

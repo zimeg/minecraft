@@ -2,6 +2,7 @@
 
 saves to the blocks aren't tracked here. just configurations.
 
+- build: remove backup related configurations these sources 2026-03-07
 - build: replace inlined settings with tom and cloud backup 2025-07-26
 - feat: backup the skyblock save with needed server changes 2024-09-01
 - feat: include a server icon in which tom emerges gamified 2024-08-09
